@@ -1,6 +1,6 @@
 name: CMake
 
-on: [push]
+on: [push, pull_request]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -12,7 +12,10 @@ jobs:
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
     # See: https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#configuring-a-build-matrix
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -22,8 +25,13 @@ jobs:
       # We'll use this as our working directory for all subsequent commands
       run: cmake -E make_directory ${{runner.workspace}}/build
 
-    - name: Install Dependencies
+    - name: Install Dependencies on Ubuntu
+      if: runner.os == 'Linux'
       run: sudo apt-get install libsdl2-*
+      
+    - name: Install Dependencies on macOS
+      if: runner.os == 'macOS'
+      run: brew install sdl2 sdl2_mixer sdl2_net sdl2_image sdl2_ttf
       
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
@@ -40,3 +48,8 @@ jobs:
       shell: bash
       # Execute the build.  You can specify a specific target with "--target <NAME>"
       run: cmake --build . --config $BUILD_TYPE
+  
+    - uses: actions/upload-artifact@v2
+      with:
+        name: DungeonRush-${{runner.os}}
+        path: ${{runner.workspace}}/build
