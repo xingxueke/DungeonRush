@@ -53,3 +53,64 @@ jobs:
       with:
         name: DungeonRush-${{runner.os}}
         path: ${{runner.workspace}}/build
+        
+  build-windows:
+   runs-on: windows-latest
+   defaults:
+    run:
+      shell: msys2 {0}
+   steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: base-devel git gcc cmake
+    #- run: git config --global core.autocrlf input
+    #  shell: bash
+    - uses: actions/checkout@v2
+      
+    - name: Install dependencies
+      run: |
+        wget https://www.libsdl.org/release/SDL2-devel-2.0.12-mingw.tar.gz
+        tar xzf SDL2-devel-2.0.12-mingw.tar.gz
+        cd SDL2-2.0.12
+        make native && cd ..
+        # SDL2_mixer
+        wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.4-mingw.tar.gz
+        tar xzf SDL2_mixer-devel-2.0.4-mingw.tar.gz && cd SDL2_mixer-2.0.4
+        make native && cd ..
+        # SDL2_image
+        wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.5-mingw.tar.gz
+        tar xzf SDL2_image-devel-2.0.5-mingw.tar.gz && cd SDL2_image-2.0.5
+        make native && cd ..
+        # SDL2_ttf
+        wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.15-mingw.tar.gz
+        tar xzf SDL2_ttf-devel-2.0.15-mingw.tar.gz && cd SDL2_ttf-2.0.15
+        make native && cd ..
+        # SDL2_net
+        wget https://www.libsdl.org/projects/SDL_net/release/SDL2_net-devel-2.0.1-mingw.tar.gz
+        tar xzf SDL2_net-devel-2.0.1-mingw.tar.gz && cd SDL2_net-2.0.1
+        make native && cd ..
+
+    - name: Create Build Environment
+      # Some projects don't allow in-source building, so create a separate build directory
+      # We'll use this as our working directory for all subsequent commands
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure CMake
+      # Use a bash shell so we can use the same syntax for environment variable
+      # access regardless of the host operating system
+      working-directory: ${{runner.workspace}}/build
+      # Note the current convention is to use the -S and -B options here to specify source 
+      # and build directories, but this is only available with CMake 3.13 and higher.  
+      # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
+      run: cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      # Execute the build.  You can specify a specific target with "--target <NAME>"
+      run: cmake --build . --config $BUILD_TYPE
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: DungeonRush-${{runner.os}}
+        path: ${{runner.workspace}}/build
