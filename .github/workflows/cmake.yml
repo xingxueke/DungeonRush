@@ -58,10 +58,11 @@ jobs:
    runs-on: windows-latest
    defaults:
     run:
-      shell: msys2_shell.cmd -mingw64 {0}
+      shell: msys2 {0}
    steps:
     - uses: msys2/setup-msys2@v2
       with:
+        msystem: MINGW64
         update: true
         install: base-devel git gcc cmake mingw-w64-x86_64-gcc
     #- run: git config --global core.autocrlf input
