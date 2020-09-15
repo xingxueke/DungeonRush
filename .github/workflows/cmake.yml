@@ -64,7 +64,7 @@ jobs:
       with:
         msystem: MINGW32
         update: true
-        install: base-devel git gcc cmake mingw-w64-i686-gcc
+        install: base-devel git gcc mingw-w64-i686-cmake mingw-w64-i686-gcc
     #- run: git config --global core.autocrlf input
     #  shell: bash
     - uses: actions/checkout@v2
