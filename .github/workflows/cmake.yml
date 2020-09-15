@@ -70,6 +70,7 @@ jobs:
       
     - name: Install dependencies
       run: |
+        mkdir /usr/local
         wget https://www.libsdl.org/release/SDL2-devel-2.0.12-mingw.tar.gz
         tar xzf SDL2-devel-2.0.12-mingw.tar.gz
         cd SDL2-2.0.12
