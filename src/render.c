@@ -58,7 +58,7 @@ void initCountDownBar() {
 void initInfo() {
   extern int stage;
   char buf[1 << 8];
-  sprintf(buf, "Stage:%3d", stage);
+  sprintf(buf, "关卡:%3d", stage);
   if (stageText)
     setText(stageText, buf);
   else
@@ -374,7 +374,7 @@ void renderInfo() {
   for (int i = 0; i < playersCount; i++) {
     char buf[1 << 8];
     calcScore(spriteSnake[i]->score);
-    sprintf(buf, "Player%d:%5d", i + 1,
+    sprintf(buf, "玩家%d:%5d", i + 1,
             (int)(spriteSnake[i]->score->rank + 0.5));
     setText(scoresText[i], buf);
     renderText(scoresText[i], startX, startY, 1);
@@ -383,7 +383,7 @@ void renderInfo() {
   if (playersCount == 1) {
     extern int GAME_WIN_NUM;
     char buf[1 << 8];
-    sprintf(buf, "Find %d more heros!",
+    sprintf(buf, "发现 %d 个英雄 !",
             GAME_WIN_NUM > spriteSnake[0]->num
                 ? GAME_WIN_NUM - spriteSnake[0]->num
                 : 0);

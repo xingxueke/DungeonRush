@@ -518,9 +518,9 @@ void destroyGame(int status) {
   blackout();
   char* msg;
   if (status == 0)
-    msg = "Stage Clear";
+    msg = "过关";
   else
-    msg = "Game Over";
+    msg = "游戏结束";
   extern SDL_Color WHITE;
   Text* text = createText(msg, WHITE);
   renderCenteredText(text, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 2);
@@ -981,7 +981,7 @@ void pauseGame() {
   pauseSound();
   playAudio(AUDIO_BUTTON1);
   dim();
-  const char msg[] = "Paused";
+  const char msg[] = "暂停";
   extern SDL_Color WHITE;
   Text* text = createText(msg, WHITE);
   renderCenteredText(text, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 1);

@@ -178,7 +178,8 @@ bool loadTextset() {
   char str[TEXT_LEN];
   while (fgets(str, TEXT_LEN, file)) {
     int n = strlen(str);
-    while (n - 1 >= 0 && !isprint(str[n - 1])) str[--n] = 0;
+    // while (n - 1 >= 0 && !isprint(str[n - 1])) str[--n] = 0;
+    if(n>0) str[n-1]='\0';
     if (!n) continue;
     if (!initText(&texts[textsCount++], str, WHITE)) {
       success = false;

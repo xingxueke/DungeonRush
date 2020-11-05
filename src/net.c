@@ -76,10 +76,10 @@ void hostGame() {
 
   extern SDL_Color WHITE;
   Text* listening[4] = {
-    createText("Listening", WHITE),
-    createText("Listening.", WHITE),
-    createText("Listening..", WHITE),
-    createText("Listening...", WHITE),
+    createText("等待中", WHITE),
+    createText("等待中.", WHITE),
+    createText("等待中..", WHITE),
+    createText("等待中...", WHITE),
     };
   
   SDL_Event e;
@@ -150,10 +150,10 @@ void joinGame(const char* hostname, Uint16 port) {
 
   extern SDL_Color WHITE;
   Text* connecting[4] = {
-    createText("Connecting", WHITE),
-    createText("Connecting.", WHITE),
-    createText("Connecting..", WHITE),
-    createText("Connecting...", WHITE),
+    createText("连接中", WHITE),
+    createText("连接中.", WHITE),
+    createText("连接中..", WHITE),
+    createText("连接中...", WHITE),
     };
   
   bool quit = false;

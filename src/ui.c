@@ -132,7 +132,7 @@ char* inputUi() {
 
   extern SDL_Color WHITE;
   Text* text = NULL;
-  Text* placeholder = createText("Enter IP", WHITE);
+  Text* placeholder = createText("输入 IP", WHITE);
 
   SDL_StartTextInput();
   SDL_Event e;
@@ -347,7 +347,7 @@ void rankListUi(int count, Score** scores) {
   Text** opts = malloc(sizeof(Text*) * count);
   char buf[1 << 8];
   for (int i = 0; i < count; i++) {
-    sprintf(buf, "Score: %-6.0lf Got: %-6d Kill: %-6d Damage: %-6d Stand: %-6d",
+    sprintf(buf, "分数: %-6.0lf 获得: %-6d 杀死: %-6d 伤害: %-6d 存活: %-6d",
             scores[i]->rank, scores[i]->got, scores[i]->killed,
             scores[i]->damage, scores[i]->stand);
     opts[i] = createText(buf, WHITE);

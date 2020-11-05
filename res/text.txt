@@ -2,16 +2,16 @@ DungeonRush
 By Rapiz
 PLACEHOLDER
 PLACEHOLDER
-Player 1
-Player 2
-Singleplayer
-Multiplayers
-Ranklist
-Exit
-Normal
-Hard
-Insane
-Local
-Lan
-Host a game
-Join a game
+玩家 1
+玩家 2
+单人游戏
+多人游戏
+排行榜
+退出
+正常
+困难
+疯狂
+本地
+局域网
+创建主机
+加入游戏
